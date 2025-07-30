@@ -4,7 +4,7 @@ import HeaderBar from "./HeaderBar";
 import { useParams } from "react-router-dom";
 import Gallery from "./Gallery";
 import RentalInfo from "./RentalInfo";
-import BenefitsCard from "./BenefitsCard";
+import BenefitsCard from "./Benefitscard";
 import DescriptionSection from "./DescriptionSection";
 import BookingCard from "./BookingCard";
 
