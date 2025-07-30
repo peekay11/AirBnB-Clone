@@ -58,10 +58,11 @@ const UpdateListing = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(listing),
       });
-      if (!res.ok) throw new Error('Failed to update listing');
+      const result = await res.json().catch(() => ({}));
+      if (!res.ok || (result && result.error)) throw new Error(result.error || 'Failed to update listing');
       navigate('/listings');
-    } catch {
-      setError('Failed to update listing.');
+    } catch (err) {
+      setError('Failed to update listing.' + (err?.message ? ' ' + err.message : ''));
     } finally {
       setLoading(false);
     }

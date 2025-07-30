@@ -124,7 +124,7 @@ export default function Nav(props) {
             {userName && <span className="nav-username">{userName}</span>}
             {showDropdown && (
               <div className="nav-profile-dropdown">
-                {dropdownOptions.map((opt, idx) => (
+                {dropdownOptions.map((opt) => (
                   <button
                     key={opt.label}
                     className="nav-profile-dropdown-option"

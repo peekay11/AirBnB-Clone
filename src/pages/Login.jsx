@@ -42,27 +42,27 @@ export default function Login() {
     }
     try {
       if (isLogin) {
-        // Login: check credentials
+        // Login: check credentials (MongoDB backend returns single user object or null)
         const res = await fetch(`${import.meta.env.VITE_API_URL}/users?username=${form.username}`);
-        const users = await res.json();
-        if (users.length === 0) {
+        const user = await res.json();
+        if (!user || !user.username) {
           toast.error("Account does not exist. Please sign up.");
           return;
         }
-        if (users[0].password !== form.password) {
+        if (user.password !== form.password) {
           toast.error("Incorrect password.");
           return;
         }
-        localStorage.setItem('airbnb_user', JSON.stringify(users[0]));
+        localStorage.setItem('airbnb_user', JSON.stringify(user));
         toast.success("Login successful!");
         setTimeout(() => {
           navigate('/');
         }, 1200);
       } else {
         // Signup: check if user exists
-        const res = await fetch(`http://localhost:4000/users?username=${form.username}`);
-        const users = await res.json();
-        if (users.length > 0) {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users?username=${form.username}`);
+        const user = await res.json();
+        if (user && user.username) {
           toast.error("Account already exists. Please log in.");
           return;
         }

@@ -65,7 +65,8 @@ const CreateListing = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newListing),
       });
-      if (!res.ok) throw new Error('Failed to add listing');
+      const result = await res.json();
+      if (!res.ok || !result || result.error) throw new Error(result.error || 'Failed to add listing');
       // Reset form
       setListingName(''); setRooms(''); setBaths(''); setType(''); setLocation(''); setLocation2(''); setDescription(''); setAmenities([]); setImages([]);
       setSuccess(true);

@@ -6,13 +6,19 @@ const UserReservations = () => {
 
   useEffect(() => {
     // Get user from localStorage
-    // Get user from localStorage
     const userData = localStorage.getItem('airbnb_user');
     // Fetch reservations for this user
-    // Replace with your API endpoint for user reservations
     fetch(`${import.meta.env.VITE_API_URL}/reservations?user=${encodeURIComponent(JSON.parse(userData)?.username || '')}`)
       .then(res => res.json())
-      .then(data => setReservations(data));
+      .then(data => {
+        if (Array.isArray(data)) {
+          setReservations(data);
+        } else if (data) {
+          setReservations([data]);
+        } else {
+          setReservations([]);
+        }
+      });
   }, []);
   return (
     <div>

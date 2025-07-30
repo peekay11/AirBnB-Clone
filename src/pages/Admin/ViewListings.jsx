@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ViewListings.css';
 
@@ -31,10 +31,11 @@ const ViewListings = () => {
   const handleDelete = async (id) => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/listings/${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error('Failed to delete listing');
+      const result = await res.json().catch(() => ({}));
+      if (!res.ok || (result && result.error)) throw new Error(result.error || 'Failed to delete listing');
       fetchListings();
     } catch (err) {
-      setError('Failed to delete listing.');
+      setError('Failed to delete listing.' + (err?.message ? ' ' + err.message : ''));
     }
   };
 

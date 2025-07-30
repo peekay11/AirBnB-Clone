@@ -26,7 +26,7 @@ function Payment() {
         setPaying(false);
         setSuccess(true);
         alert("Payment successful! Ref: " + response.reference);
-        // Post reservation to /user-reservations
+        // Post reservation to /user-reservations (MongoDB expects object)
         const reservation = {
           email,
           amount,
@@ -38,11 +38,12 @@ function Payment() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(reservation)
-        }).then(() => {
-          setTimeout(() => {
-            navigate("/user-reservations");
-          }, 1200);
-        });
+        }).then(res => res.json())
+          .then(data => {
+            setTimeout(() => {
+              navigate("/user-reservations");
+            }, 1200);
+          });
       },
       onClose: function () {
         setPaying(false);

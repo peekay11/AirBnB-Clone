@@ -294,7 +294,7 @@ span.top-section {
 .filter-bar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
-}
+
 
 .filter-bar button {
   background: #fff;

@@ -10,10 +10,7 @@ export default function BookingCard({ listing }) {
   const [guests, setGuests] = useState(1);
   const [nights, setNights] = useState(7);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-
-  if (!listing) return null;
 
   // Calculate price per guest
   const pricePerGuest = 180;
@@ -43,11 +40,8 @@ export default function BookingCard({ listing }) {
   const handleReserve = async () => {
     setLoading(true);
     setError("");
-    setSuccess("");
     const user = JSON.parse(localStorage.getItem("airbnb_user") || "{}");
     const reservation = {
-      listingId: listing.id,
-      listingName: listing.listingName,
       image: listing.images?.[0],
       rooms: listing.rooms || listing.beds || "",
       amenities: listing.amenities,
@@ -61,13 +55,13 @@ export default function BookingCard({ listing }) {
     };
     try {
       // Post to /reservations (admin view)
-      await fetch("http://localhost:4000/reservations", {
+      await fetch(`${import.meta.env.VITE_API_URL}/reservations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(reservation)
       });
       // Post to /user-reservations (user view)
-      await fetch("http://localhost:4000/user-reservations", {
+      await fetch(`${import.meta.env.VITE_API_URL}/user-reservations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(reservation)
