@@ -42,9 +42,10 @@ export default function Login() {
     }
     try {
       if (isLogin) {
-        // Login: check credentials (MongoDB backend returns single user object or null)
+        // Login: check credentials (handle array or object response)
         const res = await fetch(`${import.meta.env.VITE_API_URL}/users?username=${form.username}`);
-        const user = await res.json();
+        let user = await res.json();
+        if (Array.isArray(user)) user = user[0];
         if (!user || !user.username) {
           toast.error("Account does not exist. Please sign up.");
           return;
@@ -61,7 +62,8 @@ export default function Login() {
       } else {
         // Signup: check if user exists
         const res = await fetch(`${import.meta.env.VITE_API_URL}/users?username=${form.username}`);
-        const user = await res.json();
+        let user = await res.json();
+        if (Array.isArray(user)) user = user[0];
         if (user && user.username) {
           toast.error("Account already exists. Please log in.");
           return;
