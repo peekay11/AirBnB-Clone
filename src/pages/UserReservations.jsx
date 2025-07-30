@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import './Admin/Create/ListCard.css';
 
 const UserReservations = () => {
   const [reservations, setReservations] = useState([]);
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Get user from localStorage
+    // Get user from localStorage
     const userData = localStorage.getItem('airbnb_user');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
     // Fetch reservations for this user
     // Replace with your API endpoint for user reservations
     fetch(`${import.meta.env.VITE_API_URL}/reservations?user=${encodeURIComponent(JSON.parse(userData)?.username || '')}`)
       .then(res => res.json())
       .then(data => setReservations(data));
   }, []);
-
   return (
     <div>
       <h3 style={{ marginLeft: '20px' }}>Your Reservations</h3>
