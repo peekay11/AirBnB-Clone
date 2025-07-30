@@ -34,7 +34,7 @@ function Payment() {
           reference: response.reference,
           date: new Date().toISOString()
         };
-        fetch("http://localhost:4000/user-reservations", {
+        fetch(`${import.meta.env.VITE_API_URL}/user-reservations`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(reservation)

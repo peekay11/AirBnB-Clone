@@ -15,7 +15,7 @@ export default function SingleLocation() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/listings/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/listings/${id}`)
       .then(res => {
         if (!res.ok) throw new Error("Listing not found");
         return res.json();

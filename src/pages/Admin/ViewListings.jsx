@@ -8,9 +8,9 @@ const ViewListings = () => {
   const navigate = useNavigate();
 
   const fetchListings = () => {
-    fetch('http://localhost:4000/listings')
+    fetch(`${import.meta.env.VITE_API_URL}/listings`)
       .then(res => {
-        if (!res.ok) throw new Error('Server not running');
+        if (!res.ok) throw new Error('Failed to fetch listings');
         return res.json();
       })
       .then(data => {
@@ -20,7 +20,7 @@ const ViewListings = () => {
         }
       })
       .catch(() => {
-        setError('JSON server is not running. Please start the server.');
+        setError('Unable to fetch listings. Please check your backend connection.');
       });
   };
 
@@ -30,7 +30,7 @@ const ViewListings = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://localhost:4000/listings/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/listings/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Failed to delete listing');
       fetchListings();
     } catch (err) {

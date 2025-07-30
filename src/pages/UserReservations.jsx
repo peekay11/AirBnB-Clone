@@ -13,7 +13,7 @@ const UserReservations = () => {
     }
     // Fetch reservations for this user
     // Replace with your API endpoint for user reservations
-    fetch('http://localhost:4000/reservations?user=' + (JSON.parse(userData)?.username || ''))
+    fetch(`${import.meta.env.VITE_API_URL}/reservations?user=${encodeURIComponent(JSON.parse(userData)?.username || '')}`)
       .then(res => res.json())
       .then(data => setReservations(data));
   }, []);

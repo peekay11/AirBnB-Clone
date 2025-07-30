@@ -28,7 +28,7 @@ const UpdateListing = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:4000/listings/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/listings/${id}`)
       .then(res => {
         if (!res.ok) throw new Error('Listing not found');
         return res.json();
@@ -53,7 +53,7 @@ const UpdateListing = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`http://localhost:4000/listings/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/listings/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(listing),

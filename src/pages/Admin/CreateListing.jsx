@@ -60,7 +60,7 @@ const CreateListing = () => {
         amenities,
         images: images.map(img => img.name || 'Image uploaded'),
       };
-      const res = await fetch('http://localhost:4000/listings', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/listings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newListing),

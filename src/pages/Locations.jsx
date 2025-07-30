@@ -11,9 +11,9 @@ function Locations() {
   const [error, setError] = React.useState("");
 
   React.useEffect(() => {
-    fetch("http://localhost:4000/listings")
+    fetch(`${import.meta.env.VITE_API_URL}/listings`)
       .then(res => {
-        if (!res.ok) throw new Error("Server not running");
+        if (!res.ok) throw new Error("Failed to fetch listings");
         return res.json();
       })
       .then(data => {
@@ -21,7 +21,7 @@ function Locations() {
         setLoading(false);
       })
       .catch(() => {
-        setError("JSON server is not running.");
+        setError("Unable to fetch listings. Please check your backend connection.");
         setLoading(false);
       });
   }, []);
