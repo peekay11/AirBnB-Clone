@@ -1,0 +1,35 @@
+.single-location {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.location-main {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.location-left {
+  flex: 2;
+  min-width: 60%;
+}
+
+.location-right {
+  flex: 1;
+  min-width: 35%;
+  position: sticky;
+  top: 2rem;
+  align-self: start;
+}
+
+.report-link {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  color: #555;
+  cursor: pointer;
+}

@@ -1,0 +1,9 @@
+/* Location component styles */ 
+.location-card {
+  width: 200px;
+}
+
+.location-img {
+  width: 100%;
+  border-radius: 1rem;
+} 

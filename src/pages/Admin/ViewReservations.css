@@ -1,0 +1,35 @@
+/* View Reservations Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+thead {
+  background: #3b5bfd;
+  color: #fff;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+tbody tr {
+  border-bottom: 1px solid #eee;
+}
+tbody td {
+  color: #222;
+}
+tbody td.status-confirmed {
+  color: #388e3c;
+  font-weight: bold;
+}
+tbody td.status-pending {
+  color: #fbc02d;
+  font-weight: bold;
+}
+tbody td.status-cancelled {
+  color: #d32f2f;
+  font-weight: bold;
+}

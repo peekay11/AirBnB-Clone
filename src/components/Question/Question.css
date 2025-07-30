@@ -1,0 +1,39 @@
+.Question-Container {
+  background-image: url('../../assets/images/questions.jpg'); /* adjust the path as needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  height: 600px; /* or set a specific height */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  padding: 60px 5vw; /* Add responsive left/right padding */
+  gap: 60px;
+  box-sizing: border-box;
+  margin: 2rem 0; /* Add vertical spacing for consistency */
+}
+.Question-Title{
+    line-height: 96px;
+    font-size: 96px;
+    width: 100%;
+    padding: 10px;
+    font-weight: 500;
+}
+.Question-Button{
+  background: var(--clr-bg);
+  color: var(--clr-secondary);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s;
+  text-align: left;
+  align-self: flex-start;
+}

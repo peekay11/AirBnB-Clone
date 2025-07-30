@@ -1,0 +1,581 @@
+{
+  "listings": [
+    {
+      "id": "7084",
+      "listingName": "City View Apartment",
+      "rooms": "1",
+      "baths": "1",
+      "type": "Apartment",
+      "location": "Johannesburg",
+      "location2": "Sandton",
+      "description": "Modern apartment with city views in Sandton, Johannesburg.",
+      "amenities": [
+        "WiFi"
+      ],
+      "images": [
+        "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg"
+      ]
+    },
+    {
+      "id": "c2a5",
+      "listingName": "Garden Cottage",
+      "rooms": "1",
+      "baths": "1",
+      "type": "Cottage",
+      "location": "Durban",
+      "location2": "Umhlanga",
+      "description": "Charming garden cottage in Umhlanga, Durban.",
+      "amenities": [
+        "WiFi",
+        "Garden"
+      ],
+      "images": [
+        "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg"
+      ]
+    },
+    {
+      "id": "paris-luxury",
+      "listingName": "Paris Luxury Apartment",
+      "rating": 4.9,
+      "reviews": 210,
+      "guests": "2",
+      "beds": 1,
+      "baths": 1,
+      "amenities": [
+        "WiFi",
+        "Air Conditioning",
+        "Balcony"
+      ],
+      "price": "R450 / night",
+      "location": "Paris",
+      "description": "Luxury apartment in Paris for 2 guests, 1 bed, 1 bath. WiFi, AC, Balcony.",
+      "images": [
+        "rio-casa.jpg"
+      ]
+    },
+    {
+      "id": "nyc-loft",
+      "listingName": "NYC Modern Loft",
+      "rating": 4.8,
+      "reviews": 185,
+      "guests": "3",
+      "beds": 2,
+      "baths": 1,
+      "amenities": [
+        "WiFi",
+        "Kitchen",
+        "Elevator"
+      ],
+      "price": "R600 / night",
+      "location": "New York",
+      "description": "Modern loft in NYC for 3 guests, 2 beds, 1 bath. WiFi, Kitchen, Elevator.",
+      "images": [
+        "nyc-loft.jpg"
+      ]
+    },
+    {
+      "id": "cape-villa",
+      "listingName": "Cape Town Villa",
+      "rating": 5,
+      "reviews": 320,
+      "guests": "6",
+      "beds": 4,
+      "baths": 3,
+      "amenities": [
+        "WiFi",
+        "Pool",
+        "Parking"
+      ],
+      "price": "R900 / night",
+      "location": "Cape Town",
+      "description": "Spacious villa in Cape Town for 6 guests, 4 beds, 3 baths. WiFi, Pool, Parking.",
+      "images": [
+        "cape-villa.jpg"
+      ]
+    },
+    {
+      "id": "venice-palace",
+      "listingName": "Venice Palace",
+      "rating": 4.6,
+      "reviews": 150,
+      "guests": "4",
+      "beds": 2,
+      "baths": 2,
+      "amenities": [
+        "WiFi",
+        "Canal View",
+        "Breakfast"
+      ],
+      "price": "R700 / night",
+      "location": "Venice",
+      "description": "Palace in Venice for 4 guests, 2 beds, 2 baths. Canal View, Breakfast.",
+      "images": [
+        "venice-palace.jpg"
+      ]
+    },
+    {
+      "id": "tokyo-suite",
+      "listingName": "Tokyo City Suite",
+      "rating": 4.8,
+      "reviews": 210,
+      "guests": "2",
+      "beds": 1,
+      "baths": 1,
+      "amenities": [
+        "WiFi",
+        "Smart TV",
+        "Kitchen"
+      ],
+      "price": "R500 / night",
+      "location": "Tokyo",
+      "description": "Suite in Tokyo for 2 guests, 1 bed, 1 bath. WiFi, Smart TV, Kitchen.",
+      "images": [
+        "tokyo-suite.jpg"
+      ]
+    },
+    {
+      "id": "dubai-penthouse",
+      "listingName": "Dubai Penthouse",
+      "rating": 4.9,
+      "reviews": 300,
+      "guests": "5",
+      "beds": 3,
+      "baths": 2,
+      "amenities": [
+        "WiFi",
+        "Pool",
+        "Gym"
+      ],
+      "price": "R1200 / night",
+      "location": "Dubai",
+      "description": "Penthouse in Dubai for 5 guests, 3 beds, 2 baths. Pool, Gym.",
+      "images": [
+        "dubai-penthouse.jpg"
+      ]
+    },
+    {
+      "id": "rio-casa",
+      "listingName": "Rio Casa",
+      "rating": 4.7,
+      "reviews": 180,
+      "guests": "3",
+      "beds": 2,
+      "baths": 1,
+      "amenities": [
+        "WiFi",
+        "Beach Access",
+        "Breakfast"
+      ],
+      "price": "R650 / night",
+      "location": "Rio de Janeiro",
+      "images": [
+        "rio-casa.jpg"
+      ]
+    }
+  ],
+  "reservations": [
+    {
+      "id": "r001",
+      "listingId": "1",
+      "listingName": "Sample Hotel",
+      "image": "sample-hotel.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi",
+        "Breakfast"
+      ],
+      "rating": 4.7,
+      "reviews": 120,
+      "price": 200
+    },
+    {
+      "guests": 2,
+      "user": "pasekamabitsela22@gmail.com",
+      "id": "f673"
+    },
+    {
+      "id": "85af",
+      "listingId": "cape-villa",
+      "listingName": "Cape Town Villa",
+      "image": "cape-villa.jpg",
+      "rooms": 4,
+      "amenities": [
+        "WiFi",
+        "Pool",
+        "Parking"
+      ],
+      "rating": 5,
+      "reviews": 320,
+      "price": 720,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 4,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "b235",
+      "listingId": "nyc-loft",
+      "listingName": "NYC Modern Loft",
+      "image": "nyc-loft.jpg",
+      "rooms": 2,
+      "amenities": [
+        "WiFi",
+        "Elevator"
+      ],
+      "rating": 4.8,
+      "reviews": 185,
+      "price": 720,
+      "checkIn": "2025-07-30",
+      "checkOut": "2025-08-04",
+      "guests": 4,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "b236",
+      "listingId": "cape-villa",
+      "listingName": "Cape Town Villa",
+      "image": "cape-villa.jpg",
+      "rooms": 4,
+      "amenities": [
+        "WiFi",
+        "Pool",
+        "Parking"
+      ],
+      "rating": 5,
+      "reviews": 320,
+      "price": 900,
+      "checkIn": "2025-07-30",
+      "checkOut": "2025-08-04",
+      "guests": 4,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "b237",
+      "listingId": "cape-villa",
+      "listingName": "Cape Town Villa",
+      "image": "cape-villa.jpg",
+      "rooms": 4,
+      "amenities": [
+        "WiFi",
+        "Pool"
+      ],
+      "rating": 5,
+      "reviews": 320,
+      "price": 180,
+      "checkIn": "2025-07-30",
+      "checkOut": "2025-07-31",
+      "guests": 1,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "551f",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 180,
+      "checkIn": "2025-07-30",
+      "checkOut": "2025-07-31",
+      "guests": 1,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "c5d7",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 180,
+      "checkIn": "2025-07-30",
+      "checkOut": "2025-07-31",
+      "guests": 1,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "3064",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 180,
+      "checkIn": "2025-07-30",
+      "checkOut": "2025-07-31",
+      "guests": 1,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "07a0",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 360,
+      "checkIn": "2025-07-30",
+      "checkOut": "2025-07-31",
+      "guests": 2,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "dec9",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 180,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 1,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "5a8a",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 180,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 1,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "ff37",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 180,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 1,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "56d1",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 21960,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 122,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "b406",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 21960,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 122,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "7da0",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 21960,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 122,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "9487",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 21960,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 122,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "2aea",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 21960,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 122,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "3e5a",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 21960,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 122,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "594b",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 180,
+      "checkIn": "2025-07-10",
+      "checkOut": "2025-08-01",
+      "guests": 1,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "cd07",
+      "listingId": "7084",
+      "listingName": "City View Apartment",
+      "image": "WhatsApp Image 2025-05-20 at 15.58.20_53ef39cf.jpg",
+      "rooms": "1",
+      "amenities": [
+        "WiFi"
+      ],
+      "price": 180,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-04",
+      "guests": 1,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "03c5",
+      "listingId": "bordeaux-getaway",
+      "listingName": "Bordeaux Getaway",
+      "image": "bordeaux-getaway.jpg",
+      "rooms": 5,
+      "amenities": [
+        "WiFi",
+        "Kitchen",
+        "Free Parking"
+      ],
+      "rating": 5,
+      "reviews": 318,
+      "price": 180,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-07-31",
+      "guests": 1,
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "1535",
+      "listingId": "bordeaux-getaway",
+      "listingName": "Bordeaux Getaway",
+      "image": "bordeaux-getaway.jpg",
+      "rooms": 5,
+      "amenities": [
+        "WiFi",
+        "Kitchen",
+        "Free Parking"
+      ],
+      "rating": 5,
+      "reviews": 318,
+      "price": 180,
+      "checkIn": "2025-07-31",
+      "checkOut": "2025-08-08",
+      "guests": 1,
+      "user": "srtmakhado4@gmail.com"
+    }
+  ],
+  "favourites": [
+    {
+      "id": "fav001",
+      "listingId": "paris-luxury",
+      "listingName": "Paris Luxury Apartment",
+      "image": "paris-luxury.jpg",
+      "location": "Paris",
+      "type": "Apartment",
+      "price": "R450 / night",
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "fav002",
+      "listingId": "dubai-penthouse",
+      "listingName": "Dubai Penthouse",
+      "image": "dubai-penthouse.jpg",
+      "location": "Dubai",
+      "type": "Penthouse",
+      "price": "R1200 / night",
+      "user": "pasekamabitsela22@gmail.com"
+    },
+    {
+      "id": "fav003",
+      "listingId": "cape-villa",
+      "listingName": "Cape Town Villa",
+      "image": "cape-villa.jpg",
+      "location": "Cape Town",
+      "type": "Villa",
+      "price": "R900 / night",
+      "user": "pasekamabitsela22@gmail.com"
+    }
+  ],
+  "users": [
+    {
+      "id": "01bd",
+      "username": "pasekamabitsela22@gmail.com",
+      "password": "Ema@2023.564#"
+    },
+    {
+      "id": "edb5",
+      "username": "srtmakhado4@gmail.com",
+      "password": "12345"
+    }
+  ],
+  "user-reservations": [],
+  "admin-reservations": [],
+  "payments": []
+}

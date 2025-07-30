@@ -1,0 +1,88 @@
+/* Create Listing Page Styles */
+.create-listing-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 0;
+}
+.create-listing-title {
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #222;
+}
+.create-listing-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.create-listing-row {
+  display: flex;
+  gap: 32px;
+}
+.create-listing-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #3b5bfd;
+  margin-bottom: 6px;
+}
+.create-listing-input,
+.create-listing-textarea,
+.create-listing-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #222;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.create-listing-textarea {
+  height: 100px;
+  resize: vertical;
+}
+.create-listing-amenities {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.create-listing-amenity-list {
+  margin-top: 8px;
+  padding-left: 16px;
+}
+.create-listing-image-upload {
+  display: block;
+  margin-bottom: 12px;
+}
+.create-listing-image-preview {
+  min-height: 80px;
+  border: 1px solid #222;
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px;
+}
+.create-listing-actions {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 32px;
+}
+.create-listing-btn {
+  background: #3b5bfd;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 48px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.create-listing-btn.cancel {
+  background: #d32f2f;
+}
+.create-listing-btn:hover {
+  background: #2a3eb1;
+}
+.create-listing-btn.cancel:hover {
+  background: #a31515;
+}

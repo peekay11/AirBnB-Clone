@@ -1,0 +1,75 @@
+.inspire-section-wrapper {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.inspire-heading {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: left;
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  color: var(--clr-text);
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.inspire-card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.inspire-card {
+  width: 260px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--clr-bg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.inspire-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.inspire-caption {
+  background-color: var(--clr-primary);
+  color: var(--clr-bg);
+  padding: 1rem;
+  text-align: center;
+}
+
+.inspire-caption h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.inspire-caption p {
+  margin: 0.3rem 0 0;
+  font-size: 0.95rem;
+}
+
+/* Remove the gradient backgrounds for each card */
+.inspire-card:nth-child(1) .inspire-caption,
+.inspire-card:nth-child(2) .inspire-caption,
+.inspire-card:nth-child(3) .inspire-caption,
+.inspire-card:nth-child(4) .inspire-caption {
+  /* Remove these rules entirely to revert to the default background */
+}
+
+@media (max-width: 600px) {
+  .inspire-heading {
+    font-size: 1.3rem;
+    padding: 1rem 0.5rem;
+    text-align: center;
+  }
+}

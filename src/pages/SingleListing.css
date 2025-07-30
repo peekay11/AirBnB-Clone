@@ -1,0 +1,86 @@
+.single-listing {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.single-listing-image-container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.single-listing-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.single-listing-details {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.title-rating {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.title-rating h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.star-icon {
+  color: #FFD700;
+  margin-right: 0.3rem;
+}
+
+.review-count {
+  margin-left: 0.5rem;
+  color: #666;
+}
+
+.heart-icon {
+  color: #e63946;
+  font-size: 1.7rem;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.meta,
+.amenities,
+.price {
+  margin-top: 1.2rem;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.price-subtext {
+  font-weight: normal;
+  font-size: 0.95rem;
+  color: #777;
+}

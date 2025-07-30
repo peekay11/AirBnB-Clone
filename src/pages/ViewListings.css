@@ -1,0 +1,10 @@
+/* Pink header for favourited hotel cards */
+.pink-header {
+  background: #ff385c;
+  color: #fff;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.TETET{
+    color: black;
+}

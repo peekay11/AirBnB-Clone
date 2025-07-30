@@ -1,0 +1,33 @@
+.rental-info {
+  margin-top: 2rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1.2rem;
+}
+
+.rental-info h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
+  color: #222;
+}
+
+.rental-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.rental-meta p {
+  margin: 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.host-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}

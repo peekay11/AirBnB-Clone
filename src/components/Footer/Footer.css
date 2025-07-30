@@ -1,0 +1,17 @@
+/* Footer component styles */ 
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.footer-lang,
+.footer-currency {
+  margin-right: 1rem;
+} 

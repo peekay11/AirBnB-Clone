@@ -1,0 +1,86 @@
+.searchbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 50px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 0 2rem;
+  gap: 0.5rem;
+  max-width: 900px;
+  width: 850px;
+  height: 70px;
+  margin: 2.5rem auto;
+  position: relative;
+  z-index: 10;
+}
+
+.searchbar-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 120px;
+  padding: 0 1.2rem;
+  height: 100%;
+  /* gap: 0.2rem; */
+}
+
+.searchbar-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.1rem;
+  line-height: 1.1;
+}
+
+.searchbar-sub {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #888;
+  line-height: 1;
+}
+
+.searchbar-select {
+  
+  border: none;
+  border-radius: 8px;
+margin: 0;
+padding: 0;
+    font-size: 0.95rem;
+      font-weight: 400;
+
+  background: none;
+   color: #888;
+  outline: none;
+  line-height: 1;
+}
+
+.searchbar-divider {
+  width: 1px;
+  height: 2.2rem;
+  background: #ececec;
+  margin: 0 0.5rem;
+  align-self: center;
+}
+
+.searchbar-btn {
+  background: #e11d48;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: background 0.2s;
+  align-self: center;
+}
+.searchbar-btn:hover {
+  background: #c8003d;
+} 

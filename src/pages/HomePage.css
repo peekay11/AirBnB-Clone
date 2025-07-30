@@ -1,0 +1,25 @@
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  background: var(--clr-bg);
+  color: var(--clr-bg);
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  /* background-color: aqua; */
+}
+
+h6 {
+  color: var(--clr-bg);
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 1rem 0 0.5rem;
+}
+
+.top-section-bg {
+  background: var(--clr-black);
+  width: 100%;
+  padding-bottom: 2rem; /* Optional: space below hero */
+}
+

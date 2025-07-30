@@ -1,0 +1,58 @@
+/* FooterLinks component styles */ 
+.footer-links {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;      /* vertical alignment at the top */
+  justify-content: flex-start;  /* align columns to the left */
+  gap: 56px;                    /* even horizontal space between columns */
+  padding: 40px 0 24px 0;
+  background: var(--clr-footer-bg);
+  border-top: 1px solid var(--clr-footer-border);
+  color: var(--clr-text-light);
+  font-family: 'Arial', sans-serif;
+  font-size: 15px;
+}
+
+.footer-section {
+  min-width: 180px;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;      /* left-align all content in the column */
+}
+
+.footer-section h4 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--clr-text);
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.footer-section p {
+  margin: 0 0 12px 0;
+  color: var(--clr-text-light);
+  font-weight: 400;
+  font-size: 15px;
+  cursor: pointer;
+  transition: text-decoration 0.2s;
+  text-align: left;
+}
+
+.footer-section p:hover {
+  text-decoration: underline;
+  color: var(--clr-text);
+}
+
+/* Responsive: stack columns on small screens */
+@media (max-width: 900px) {
+  .footer-links {
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px 0 16px 0;
+  }
+  .footer-section {
+    min-width: 0;
+  }
+} 

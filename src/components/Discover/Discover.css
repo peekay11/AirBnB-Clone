@@ -1,0 +1,177 @@
+/* Discover component styles */ 
+.discover-section {
+  padding: 2rem 0;
+  max-width: none;
+  margin: 0;
+}
+
+.discover-title{
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: left;
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  color: var(--clr-text);
+  box-sizing: border-box;
+  border-radius: 8px;
+  
+}
+
+.discover-list {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+ 
+  width: 100%;
+  /* background-color: var(--clr-primary); */
+}
+
+.discover-card {
+  flex: 1 1 0;
+  min-width: 280px;
+  max-width: 628px;
+  height: 600px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.discover-overlay {
+  width: 100%;
+  height: 100%;
+  padding: 80px 0 0 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: linear-gradient(0deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%);
+  box-sizing: border-box;
+}
+
+.discover-overlay h3 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  color: var(--clr-bg);
+  text-align: left;
+}
+
+.discover-overlay button {
+  background: var(--clr-bg);
+  color: var(--clr-secondary);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+  text-align: left;
+}
+.discover-overlay button:hover {
+  background: #f7f7f7;
+}
+
+@media (max-width: 1400px) {
+  .discover-section {
+    padding: 2rem 8px;
+  }
+  .discover-card {
+    width: 100%;
+    max-width: 628px;
+    height: 400px;
+  }
+  .discover-overlay {
+    padding: 40px 0 0 40px;
+  }
+}
+
+@media (max-width: 700px) {
+  .discover-list {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .discover-card {
+    width: 100%;
+    height: 220px;
+  }
+  .discover-overlay {
+    padding: 20px 0 0 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .discover-heading {
+    font-size: 1.3rem;
+    padding: 1rem 0.5rem;
+    text-align: center;
+  }
+  .discover-section {
+    padding: 1rem 0.5rem;
+  }
+}
+
+.discover-img {
+  width: 200px;
+  border-radius: 1rem;
+}
+
+.section-heading {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: left;
+  padding: 1.5rem 2rem;
+  color: var(--clr-text);
+  background-color: var(--clr-primary);
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  .section-heading {
+    font-size: 1.3rem;
+    padding: 1rem 0.5rem;
+    text-align: center;
+  }
+}
+
+.container {
+width: 100%;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  /* background-color: var(--clr-primary); */
+}
+
+.navbar, .nav-section, .nav-wrapper {
+  background: var(--clr-black);
+  color: var(--clr-bg);
+}
+
+/* If your nav uses a different class, use that class name instead */ 
+
+.top-section-bg {
+  background: var(--clr-black);
+  width: 100%;
+  padding-bottom: 2rem; /* Space below hero if needed */
+} 

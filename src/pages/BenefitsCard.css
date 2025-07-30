@@ -1,0 +1,34 @@
+.benefits-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  background-color: #fdfdfd;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.benefit-icon {
+  font-size: 1.5rem;
+  color: #ff5a5f;
+  flex-shrink: 0;
+}
+
+.benefit strong {
+  font-size: 1rem;
+  color: #222;
+}
+
+.benefit p {
+  margin: 0.3rem 0 0;
+  font-size: 0.95rem;
+  color: #555;
+}
