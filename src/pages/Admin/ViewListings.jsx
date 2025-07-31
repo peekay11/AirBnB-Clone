@@ -88,6 +88,7 @@ const ViewListings = () => {
                     {listing.rating && (
                       <span>{listing.rating} <span role="img" aria-label="star">⭐</span></span>
                     )}
+                    
                     {listing.reviews && (
                       <span className="hotel-card-reviews">({listing.reviews} reviews)</span>
                     )}
