@@ -37,7 +37,7 @@ const ViewListings = () => {
     // Add to favourites in localStorage
     const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
     // Avoid duplicates
-    if (!favourites.some(fav => fav.id === listing.id)) {
+    if (!favourites.some(fav => fav._id === listing._id)) {
       favourites.push(listing);
       localStorage.setItem('favourites', JSON.stringify(favourites));
     }
@@ -48,7 +48,7 @@ const ViewListings = () => {
 
   const handleHeaderClick = (listing) => {
     // Add to favourites if not already present
-    if (!favourites.some(fav => fav.id === listing.id)) {
+    if (!favourites.some(fav => fav._id === listing._id)) {
       const newFavs = [...favourites, listing];
       setFavourites(newFavs);
       localStorage.setItem('favourites', JSON.stringify(newFavs));
@@ -63,7 +63,7 @@ const ViewListings = () => {
         {listings.length === 0 && !error ? <div>No listings to show.</div> : null}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%' }}>
           {listings.map((listing) => (
-            <div key={listing.id} className="hotel-card" style={{ cursor: 'pointer' }} onClick={() => handleCardClick(listing.id)}>
+            <div key={listing._id} className="hotel-card" style={{ cursor: 'pointer' }} onClick={() => handleCardClick(listing._id)}>
               <div className="hotel-card-left">
                 <img
                   src={
@@ -79,7 +79,7 @@ const ViewListings = () => {
               </div>
               <div className="hotel-card-right">
                 <div
-                  className={`hotel-card-header${favourites.some(fav => fav.id === listing.id) ? ' pink-header' : ''}`}
+                  className={`hotel-card-header${favourites.some(fav => fav._id === listing._id) ? ' pink-header' : ''}`}
                   onClick={e => {
                     e.stopPropagation();
                     handleHeaderClick(listing);

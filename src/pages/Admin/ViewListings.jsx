@@ -50,7 +50,7 @@ const ViewListings = () => {
         {listings.length === 0 && !error ? <div>No listings to show.</div> : null}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%' }}>
           {listings.map((listing, idx) => (
-            <div key={idx} className="hotel-card">
+            <div key={listing._id} className="hotel-card">
               <div className="hotel-card-left">
                 <img
                   src={
@@ -97,8 +97,8 @@ const ViewListings = () => {
                   </div>
                 </div>
                 <div className="hotel-card-actions">
-                  <button className="hotel-card-update" onClick={() => handleUpdate(listing.id)}>Update</button>
-                  <button className="hotel-card-delete" onClick={() => handleDelete(listing.id)}>Delete</button>
+                  <button className="hotel-card-update" onClick={() => handleUpdate(listing._id)}>Update</button>
+                  <button className="hotel-card-delete" onClick={() => handleDelete(listing._id)}>Delete</button>
                 </div>
               </div>
             </div>
