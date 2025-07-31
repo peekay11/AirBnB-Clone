@@ -42,15 +42,15 @@ export default function Login() {
     }
     try {
       if (isLogin) {
-        // Login: check credentials (handle array or object response)
+        // Login: check credentials robustly
         const res = await fetch(`${import.meta.env.VITE_API_URL}/users?username=${form.username}`);
-        let user = await res.json();
-        if (Array.isArray(user)) user = user[0];
+        let users = await res.json();
+        let user = Array.isArray(users) ? users.find(u => u.username === form.username) : users;
         if (!user || !user.username) {
           toast.error("Account does not exist. Please sign up.");
           return;
         }
-        if (user.password !== form.password) {
+        if (!user.password || user.password !== form.password) {
           toast.error("Incorrect password.");
           return;
         }
