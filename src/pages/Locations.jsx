@@ -73,9 +73,9 @@ function Locations() {
 
         {filteredLocations.map((location) => (
           <div
-            key={location.id}
+            key={location._id}
             className="location-card"
-            onClick={() => navigate(`/listing/${location.id}`)}
+            onClick={() => navigate(`/listing/${location._id}`)}
           >
             <img src={location.images && location.images[0] ? (location.images[0].startsWith('http') ? location.images[0] : `/assets/images/${location.images[0]}`) : ''} alt={location.listingName} className="location-image" />
 
