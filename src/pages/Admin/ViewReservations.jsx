@@ -33,6 +33,7 @@ const ViewReservations = () => {
       })
       .catch((err) => {
         setError(err.message || 'Failed to delete reservation.');
+        
       });
   };
   return (
