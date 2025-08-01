@@ -1,14 +1,14 @@
 import "./BenefitsCard.css";
 import { FaHome, FaDoorOpen, FaRegCalendarCheck } from "react-icons/fa";
 
-export default function BenefitsCard() {
+export default function BenefitsCard({ listing }) {
   return (
     <div className="benefits-card">
       <div className="benefit">
         <FaHome className="benefit-icon" />
         <div>
-          <strong>Entire home</strong>
-          <p>You’ll have the rental unit to yourself.</p>
+          <strong>Entire {listing?.type || 'home'}</strong>
+          <p>You’ll have the {listing?.type || 'rental unit'} to yourself.</p>
         </div>
       </div>
       <div className="benefit">
@@ -22,10 +22,9 @@ export default function BenefitsCard() {
         <FaRegCalendarCheck className="benefit-icon" />
         <div>
           <strong>Free cancellation</strong>
-          <p>Cancel before Feb 14 for a full refund.</p>
+          <p>Cancel within 48 hours for a full refund.</p>
         </div>
       </div>
     </div>
   );
-  
 }

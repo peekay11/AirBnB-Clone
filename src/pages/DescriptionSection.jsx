@@ -1,11 +1,11 @@
 import "./DescriptionSection.css";
 
-export default function DescriptionSection() {
+export default function DescriptionSection({ listing }) {
+  if (!listing) return null;
   return (
     <div className="description-section">
       <p>
-        Come stay in our superb apartment and enjoy a peaceful retreat in the heart of the city. 
-        Whether you're visiting for work or leisure, this listing offers a prime location with all the comforts of home.
+        {listing.description || 'No description provided.'}
       </p>
       <a href="#" className="see-more">See more</a>
     </div>
