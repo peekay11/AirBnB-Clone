@@ -16,12 +16,12 @@ export default function SingleLocation() {
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/listings/${id}`)
-      .then(res => {
-        if (!res.ok) throw new Error("Listing not found");
-        return res.json();
+      .then(res => res.json())
+      .then(result => {
+        if (!result.success) throw new Error(result.error || "Listing not found");
+        setListing(result.data);
       })
-      .then(data => setListing(data))
-      .catch(() => setError("Listing not found"));
+      .catch(err => setError(err.message || "Listing not found"));
   }, [id]);
 
   if (error) return <div>{error}</div>;

@@ -5,19 +5,22 @@ const UserReservations = () => {
   const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
-    // Get user from localStorage
     const userData = localStorage.getItem('airbnb_user');
-    // Fetch reservations for this user
     fetch(`${import.meta.env.VITE_API_URL}/reservations?user=${encodeURIComponent(JSON.parse(userData)?.username || '')}`)
       .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          setReservations(data);
-        } else if (data) {
-          setReservations([data]);
+      .then(result => {
+        if (!result.success) throw new Error(result.error || 'Unable to fetch reservations.');
+        if (Array.isArray(result.data)) {
+          setReservations(result.data);
+        } else if (result.data) {
+          setReservations([result.data]);
         } else {
           setReservations([]);
         }
+      })
+      .catch(err => {
+        setReservations([]);
+        // Optionally display error to user
       });
   }, []);
   return (

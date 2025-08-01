@@ -42,40 +42,33 @@ export default function Login() {
     }
     try {
       if (isLogin) {
-        // Login: check credentials robustly
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/users?username=${form.username}`);
-        let users = await res.json();
-        let user = Array.isArray(users) ? users.find(u => u.username === form.username) : users;
-        if (!user || !user.username) {
-          toast.error("Account does not exist. Please sign up.");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: form.username, password: form.password })
+        });
+        const result = await res.json();
+        if (!result.success) {
+          toast.error(result.error || "Login failed.");
           return;
         }
-        if (!user.password || user.password !== form.password) {
-          toast.error("Incorrect password.");
-          return;
-        }
-        localStorage.setItem('airbnb_user', JSON.stringify(user));
+        localStorage.setItem('airbnb_user', JSON.stringify(result.user));
         toast.success("Login successful!");
         setTimeout(() => {
           navigate('/');
         }, 1200);
       } else {
-        // Signup: check if user exists
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/users?username=${form.username}`);
-        let user = await res.json();
-        if (Array.isArray(user)) user = user[0];
-        if (user && user.username) {
-          toast.error("Account already exists. Please log in.");
-          return;
-        }
-        // Add user
-        const newUser = { username: form.username, password: form.password };
-        await fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newUser)
+          body: JSON.stringify({ username: form.username, password: form.password })
         });
-        localStorage.setItem('airbnb_user', JSON.stringify(newUser));
+        const result = await res.json();
+        if (!result.success) {
+          toast.error(result.error || "Sign up failed.");
+          return;
+        }
+        localStorage.setItem('airbnb_user', JSON.stringify({ username: form.username }));
         toast.success("Sign up successful!");
         setTimeout(() => {
           setIsLogin(true);
@@ -88,8 +81,6 @@ export default function Login() {
 
   return (
     <>
-      <Nav isLogin={true} user={JSON.parse(localStorage.getItem('airbnb_user') || '{}')} />
-
       <main className="login-container">
         <div className="login-box">
           <div className="welcome-text">{isHostLogin ? 'Welcome to Airbnb Hosts' : 'Welcome to Airbnb'}</div>

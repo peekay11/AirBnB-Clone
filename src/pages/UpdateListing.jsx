@@ -29,16 +29,14 @@ const UpdateListing = () => {
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/listings/${id}`)
-      .then(res => {
-        if (!res.ok) throw new Error('Listing not found');
-        return res.json();
-      })
-      .then(data => {
-        setListing(data);
+      .then(res => res.json())
+      .then(result => {
+        if (!result.success) throw new Error(result.error || 'Listing not found');
+        setListing(result.data);
         setLoading(false);
       })
-      .catch(() => {
-        setError('Failed to fetch listing.');
+      .catch(err => {
+        setError(err.message || 'Listing not found');
         setLoading(false);
       });
   }, [id]);

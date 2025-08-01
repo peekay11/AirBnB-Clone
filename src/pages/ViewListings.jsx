@@ -10,19 +10,13 @@ const ViewListings = () => {
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/listings`)
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch listings');
-        return res.json();
+      .then(res => res.json())
+      .then(result => {
+        if (!result.success) throw new Error(result.error || 'Unable to fetch listings.');
+        setListings(Array.isArray(result.data) ? result.data : []);
+        if (result.data.length === 0) setError('No listings found.');
       })
-      .then(data => {
-        setListings(data);
-        if (data.length === 0) {
-          setError('No listings found.');
-        }
-      })
-      .catch(() => {
-        setError('Unable to fetch listings. Please check your backend connection.');
-      });
+      .catch(err => setError(err.message || 'Unable to fetch listings. Please check your backend connection.'));
   }, []);
 
   const [favourites, setFavourites] = useState(() => {

@@ -8,29 +8,31 @@ const ViewReservations = () => {
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/reservations`)
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch reservations');
-        return res.json();
-      })
-      .then(data => {
-        setReservations(Array.isArray(data) ? data : []);
+      .then(res => res.json())
+      .then(result => {
+        if (!result.success) {
+          throw new Error(result.error || 'Unable to fetch reservations.');
+        }
+        setReservations(Array.isArray(result.data) ? result.data : []);
         setLoading(false);
       })
-      .catch(() => {
-        setError('Unable to fetch reservations. Please check your backend connection.');
+      .catch((err) => {
+        setError(err.message || 'Unable to fetch reservations. Please check your backend connection.');
         setLoading(false);
       });
   }, []);
 
   const handleDelete = (id) => {
-    // Optionally, send a DELETE request to backend here
     fetch(`${import.meta.env.VITE_API_URL}/reservations/${id}`, { method: 'DELETE' })
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to delete reservation');
+      .then(res => res.json())
+      .then(result => {
+        if (!result.success) {
+          throw new Error(result.error || 'Failed to delete reservation');
+        }
         setReservations(prev => prev.filter(r => r._id !== id));
       })
-      .catch(() => {
-        setError('Failed to delete reservation.');
+      .catch((err) => {
+        setError(err.message || 'Failed to delete reservation.');
       });
   };
   return (
