@@ -56,7 +56,7 @@ const ViewListings = () => {
         {error && <div style={{ color: 'red', marginBottom: '12px' }}>{error}</div>}
         {listings.length === 0 && !error ? <div>No listings to show.</div> : null}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%' }}>
-          {listings.map((listing) => (
+          {(Array.isArray(listings) ? listings : []).map((listing) => (
             <div key={listing._id} className="hotel-card" style={{ cursor: 'pointer' }} onClick={() => handleCardClick(listing._id)}>
               <div className="hotel-card-left">
                 <img
