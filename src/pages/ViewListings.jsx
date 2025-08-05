@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./ViewListings.css";
@@ -56,12 +55,12 @@ const ViewListings = () => {
         {error && <div style={{ color: 'red', marginBottom: '12px' }}>{error}</div>}
         {listings.length === 0 && !error ? <div>No listings to show.</div> : null}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%' }}>
-          {(Array.isArray(listings) ? listings : []).map((listing) => (
-            <div key={listing._id} className="hotel-card" style={{ cursor: 'pointer' }} onClick={() => handleCardClick(listing._id)}>
+          {(Array.isArray(listings) ? listings.filter(l => l && typeof l === 'object') : []).map((listing) => (
+            <div key={listing && listing._id ? listing._id : Math.random()} className="hotel-card" style={{ cursor: 'pointer' }} onClick={() => handleCardClick(listing._id)}>
               <div className="hotel-card-left">
                 <img
                   src={
-                    listing.images && listing.images[0]
+                    listing.images && Array.isArray(listing.images) && listing.images[0]
                       ? listing.images[0].startsWith('http')
                         ? listing.images[0]
                         : `/assets/images/${listing.images[0]}`
