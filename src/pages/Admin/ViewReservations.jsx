@@ -67,7 +67,7 @@ const ViewReservations = () => {
               </tr>
             </thead>
             <tbody>
-              {reservations.map((r) => (
+              {(Array.isArray(reservations) ? reservations : []).map((r) => (
                 <tr key={r._id} style={{ borderBottom: '1px solid #eee' }}>
                   <td style={{ padding: '12px', color: '#222' }}>{r.guest}</td>
                   <td style={{ padding: '12px', color: '#222' }}>{r.property}</td>

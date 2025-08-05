@@ -49,7 +49,7 @@ const ViewListings = () => {
         {error && <div style={{ color: 'red', marginBottom: '12px' }}>{error}</div>}
         {listings.length === 0 && !error ? <div>No listings to show.</div> : null}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%' }}>
-          {listings.map((listing, idx) => (
+          {(Array.isArray(listings) ? listings : []).map((listing, idx) => (
             <div key={listing._id} className="hotel-card">
               <div className="hotel-card-left">
                 <img

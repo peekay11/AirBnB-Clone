@@ -29,7 +29,7 @@ const Favourites = () => {
             </tr>
           </thead>
           <tbody>
-            {favourites.map((fav) => (
+            {(Array.isArray(favourites) ? favourites : []).map((fav) => (
               <tr key={fav._id} onClick={() => navigate(`/listing/${fav._id}`)} style={{ cursor: 'pointer', border: "1px solid #ddd" }}>
                 <td style={{ padding: "8px", border: "1px solid #ddd" }}>
                   <img src={fav.images && fav.images[0] ? (fav.images[0].startsWith("http") ? fav.images[0] : `/assets/images/${fav.images[0]}`) : "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=500&auto=format&fit=crop&q=60"} alt={fav.listingName} style={{ width: '60px', borderRadius: '8px' }} />

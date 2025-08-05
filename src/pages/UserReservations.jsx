@@ -46,7 +46,7 @@ const UserReservations = () => {
               </tr>
             </thead>
             <tbody>
-              {reservations.map((res, idx) => (
+              {(Array.isArray(reservations) ? reservations : []).map((res, idx) => (
                 <tr key={idx} style={{ borderBottom: '1px solid #eee' }}>
                   <td style={{ padding: '10px', textAlign: 'center' }}>
                     <img src={res.image || "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=100&auto=format&fit=crop&q=60"} alt="listing" style={{ width: '80px', borderRadius: '8px' }} />

@@ -58,7 +58,7 @@ const CreateListing = () => {
         location2,
         description,
         amenities,
-        images: images.map(img => img.name || 'Image uploaded'),
+        images: (Array.isArray(images) ? images : []).map(img => img.name || 'Image uploaded'),
       };
       const res = await fetch(`${import.meta.env.VITE_API_URL}/listings`, {
         method: 'POST',
@@ -138,7 +138,7 @@ const CreateListing = () => {
             <div style={{ flex: 1 }}>
               <label className="create-listing-label">Amenities</label>
               <div className="create-listing-amenities" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
-                {amenityOptions.map(opt => (
+                {(Array.isArray(amenityOptions) ? amenityOptions : []).map(opt => (
                   <button
                     key={opt}
                     type="button"
@@ -166,7 +166,7 @@ const CreateListing = () => {
                 >Add</button>
               </div>
               <ul className="create-listing-amenity-list" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', listStyle: 'none', padding: 0 }}>
-                {amenities.map((a, i) => (
+                {(Array.isArray(amenities) ? amenities : []).map((a, i) => (
                   <li key={i} style={{
                     borderRadius: 20,
                     padding: '0.25rem 1.2rem',
@@ -187,7 +187,7 @@ const CreateListing = () => {
             <label className="create-listing-label">Images</label>
             <input type="file" multiple onChange={handleImageUpload} className="create-listing-image-upload" />
             <div className="create-listing-image-preview">
-              {images.length > 0 ? images.map((img, i) => (
+              {Array.isArray(images) && images.length > 0 ? images.map((img, i) => (
                 <span key={i} style={{ display: 'inline-block', position: 'relative', marginRight: '12px' }}>
                   {img.type && img.type.startsWith('image') ? (
                     <img src={URL.createObjectURL(img)} alt={img.name || 'Image'} style={{ maxWidth: '80px', maxHeight: '80px', borderRadius: '6px', border: '1px solid #ccc' }} />

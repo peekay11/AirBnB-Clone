@@ -121,7 +121,7 @@ const UpdateListing = () => {
               <button type="button" onClick={handleAddAmenity} className="create-listing-btn" style={{ padding: '8px 24px', background: '#3b5bfd', color: '#fff', borderRadius: '4px', border: 'none' }}>Add</button>
             </div>
             <ul className="create-listing-amenity-list">
-              {listing.amenities && listing.amenities.map((a, i) => (
+              {Array.isArray(listing.amenities) ? listing.amenities.map((a, i) => (
                 <li key={i}>
                   {a} <button type="button" style={{ marginLeft: 8, color: '#d32f2f', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => handleRemoveAmenity(i)}>×</button>
                 </li>
@@ -133,7 +133,7 @@ const UpdateListing = () => {
           <label className="create-listing-label">Images</label>
           <input type="file" multiple onChange={handleImageUpload} className="create-listing-image-upload" />
           <div className="create-listing-image-preview">
-            {listing.images && listing.images.length > 0 ? listing.images.map((img, i) => (
+            {Array.isArray(listing.images) && listing.images.length > 0 ? listing.images.map((img, i) => (
               <span key={i} style={{ display: 'inline-block', position: 'relative', marginRight: '12px' }}>
                 <span>{img}</span>
                 <button type="button" onClick={() => handleRemoveImage(i)} style={{ position: 'absolute', top: 0, right: 0, background: '#d32f2f', color: '#fff', border: 'none', borderRadius: '50%', width: '22px', height: '22px', cursor: 'pointer', fontWeight: 'bold', fontSize: '1rem', lineHeight: '22px', padding: 0 }}>×</button>

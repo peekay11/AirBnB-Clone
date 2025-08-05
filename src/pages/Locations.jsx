@@ -32,7 +32,7 @@ function Locations() {
     setSelectedLocation(loc);
   }, [location.search]);
 
-  const locationNames = Array.from(new Set(locations.map(l => l.listingName)));
+  const locationNames = Array.from(new Set((Array.isArray(locations) ? locations : []).map(l => l.listingName)));
 
   let filteredLocations = locations;
   if (selectedLocation) {
@@ -71,7 +71,7 @@ function Locations() {
       <div className="location-container">
         <p className="locations-heading">{filteredLocations.length}+ stays found</p>
 
-        {filteredLocations.map((location) => (
+        {(Array.isArray(filteredLocations) ? filteredLocations : []).map((location) => (
           <div
             key={location._id}
             className="location-card"

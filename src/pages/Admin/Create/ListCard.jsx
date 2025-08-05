@@ -4,7 +4,7 @@ import './ListCard.css';
 const ListCard = () => {
     return (
         <div className="card-list">
-            {[1, 2, 3].map((card, idx) => (
+            {(Array.isArray([1, 2, 3]) ? [1, 2, 3] : []).map((card, idx) => (
                 <div className="card-container" key={idx}>
                     <div className="card-left">
                         <img
