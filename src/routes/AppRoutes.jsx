@@ -31,15 +31,23 @@ export default function AppRoutes() {
       {/* Public routes */}
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/listing" element={<Locations />} />
-      <Route path="/listing/:id" element={<SingleLocation />} />
-      <Route path="/user-reservations" element={<UserReservations />} />
+      {/* Only logged-in users can view listings */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/listing" element={<Locations />} />
+        <Route path="/listing/:id" element={<SingleLocation />} />
+      </Route>
+      {/* Only logged-in users can view their own reservations */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/user-reservations" element={<UserReservations />} />
+      </Route>
       <Route path="/favourites" element={<Favourites />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/profile" element={<Profile />} />
 
-      {/* Redirect from old path */}
+
+      {/* Redirects for dashboard/legacy paths */}
       <Route path="/location/all" element={<Navigate to="/listing" replace />} />
+      <Route path="/admin" element={<Navigate to="/listings" replace />} />
 
       {/* Protected routes */}
       <Route element={<ProtectedRoute />}>
