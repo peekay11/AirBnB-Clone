@@ -70,10 +70,19 @@ const UserReservations = () => {
     'images',
   ];
 
+  // Only show reservations made by the logged-in user (extra safeguard)
+  let userName = null;
+  try {
+    userName = JSON.parse(localStorage.getItem('airbnb_user'))?.username || null;
+  } catch { userName = null; }
+  const myReservations = Array.isArray(reservations)
+    ? reservations.filter(r => r && (r.user === userName || r.username === userName))
+    : [];
+
   return (
     <div>
       <h3 style={{ marginLeft: '20px' }}>Your Reservations</h3>
-      {reservations.length === 0 ? (
+      {myReservations.length === 0 ? (
         <p style={{ marginLeft: '20px', color: '#888' }}>No reservations found.</p>
       ) : (
         <div style={{ overflowX: 'auto', margin: '20px' }}>

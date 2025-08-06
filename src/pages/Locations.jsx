@@ -37,10 +37,15 @@ function Locations() {
 
   const locationNames = Array.from(new Set((Array.isArray(locations) ? locations : []).map(l => l.listingName)));
 
-  let filteredLocations = locations;
-  if (selectedLocation) {
-    filteredLocations = filteredLocations.filter(loc => loc.listingName === selectedLocation);
-  }
+let filteredLocations = locations;
+if (selectedLocation && selectedLocation !== 'all' && selectedLocation !== 'select') {
+  const sel = selectedLocation.toLowerCase();
+  filteredLocations = filteredLocations.filter(
+    loc =>
+      (loc.listingName && loc.listingName.toLowerCase().includes(sel)) ||
+      (loc.location && loc.location.toLowerCase().includes(sel))
+  );
+}
   if (selectedAmenity) {
     filteredLocations = filteredLocations.filter(loc => loc.amenities && loc.amenities.includes(selectedAmenity));
   }

@@ -1,0 +1,18 @@
+/* Custom styles for the calendar in the search bar */
+.react-datepicker {
+  font-size: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+}
+.react-datepicker__header {
+  background: #fff0f3;
+  border-bottom: 1px solid #eee;
+}
+.react-datepicker__day--selected, .react-datepicker__day--keyboard-selected {
+  background: #ff385c;
+  color: #fff;
+}
+.react-datepicker__day:hover {
+  background: #ffe0e6;
+}

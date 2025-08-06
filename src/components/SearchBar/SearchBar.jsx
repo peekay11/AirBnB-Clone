@@ -3,13 +3,22 @@ import "./SearchBar.css";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useLocationSync } from "../../context/LocationSyncContext";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "./CalendarTheme.css";
 import { API_URL } from '../../constants';
+
 
 export default function SearchBar() {
   const navigate = useNavigate();
   const [locationNames, setLocationNames] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState("select");
+  const { locationValue, setLocationValue } = useLocationSync();
+  const [selectedLocation, setSelectedLocation] = useState(locationValue || "select");
   const [loadingLocations, setLoadingLocations] = useState(true);
+  const [checkIn, setCheckIn] = useState(null);
+  const [checkOut, setCheckOut] = useState(null);
+  const [guests, setGuests] = useState(1);
 
   useEffect(() => {
     setLoadingLocations(true);
@@ -34,17 +43,33 @@ export default function SearchBar() {
       });
   }, []);
 
+
+  // Sync local state with context
+  useEffect(() => {
+    setSelectedLocation(locationValue || "select");
+  }, [locationValue]);
+
   const handleLocationChange = (e) => {
-    const value = e.target.value;
-    setSelectedLocation(value);
-    if (value && value !== "select") {
-      // Always go to /listing and pass location as query param
-      if (value === "all") {
-        navigate("/listing");
-      } else {
-        navigate(`/listing?location=${encodeURIComponent(value)}`);
-      }
+    setSelectedLocation(e.target.value);
+    setLocationValue(e.target.value);
+  };
+
+  const handleSearch = () => {
+    const params = [];
+    if (selectedLocation && selectedLocation !== "select" && selectedLocation !== "all") {
+      params.push(`location=${encodeURIComponent(selectedLocation)}`);
     }
+    if (checkIn) {
+      params.push(`checkIn=${encodeURIComponent(checkIn.toISOString().split('T')[0])}`);
+    }
+    if (checkOut) {
+      params.push(`checkOut=${encodeURIComponent(checkOut.toISOString().split('T')[0])}`);
+    }
+    if (guests) {
+      params.push(`guests=${guests}`);
+    }
+    const query = params.length ? `?${params.join('&')}` : '';
+    navigate(`/listing${query}`);
   };
 
   return (
@@ -66,22 +91,51 @@ export default function SearchBar() {
       <div className="searchbar-divider" />
       <div className="searchbar-group">
         <label className="searchbar-label">
-          Check in<br /><span className="searchbar-sub">Add dates</span>
+          Check in<br />
+          <DatePicker
+            selected={checkIn}
+            onChange={date => setCheckIn(date)}
+            selectsStart
+            startDate={checkIn}
+            endDate={checkOut}
+            placeholderText="Add date"
+            className="searchbar-date"
+          />
         </label>
       </div>
       <div className="searchbar-divider" />
       <div className="searchbar-group">
         <label className="searchbar-label">
-          Check out<br /><span className="searchbar-sub">Add dates</span>
+          Check out<br />
+          <DatePicker
+            selected={checkOut}
+            onChange={date => setCheckOut(date)}
+            selectsEnd
+            startDate={checkIn}
+            endDate={checkOut}
+            minDate={checkIn}
+            placeholderText="Add date"
+            className="searchbar-date"
+          />
         </label>
       </div>
       <div className="searchbar-divider" />
       <div className="searchbar-group">
         <label className="searchbar-label">
-          Guests<br /><span className="searchbar-sub">Add guests</span>
+          Guests<br />
+          <input
+            type="number"
+            min={1}
+            max={20}
+            value={guests}
+            onChange={e => setGuests(Number(e.target.value))}
+            className="searchbar-guests"
+            style={{ width: 60, borderRadius: 8, border: '1px solid #eee', padding: '2px 8px', fontSize: '1rem', marginTop: 2 }}
+            placeholder="Add guests"
+          />
         </label>
       </div>
-      <button className="searchbar-btn"><FaSearch /></button>
+      <button className="searchbar-btn" onClick={handleSearch}><FaSearch /></button>
     </div>
   );
 }

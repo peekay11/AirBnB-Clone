@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLocationSync } from "../../context/LocationSyncContext";
 import "./Nav.css";
 import { FaGlobe, FaBars, FaUserCircle, FaSearch } from "react-icons/fa";
 import Logo from "../Logo/Logo";
@@ -30,11 +31,15 @@ export default function Nav(props) {
   const { variant = "classic", isLogin, bottomSection } = props;
 
   const [showDropdown, setShowDropdown] = React.useState(false);
+  const handleLogout = () => {
+    localStorage.removeItem('airbnb_user');
+    window.location.reload();
+  };
   const dropdownOptions = [
     { label: "View Reservations", action: () => navigate("/user-reservations") },
     { label: "Favourites", action: () => navigate("/favourites") },
     { label: "Profile", action: () => navigate("/profile") },
-    { label: "Logout", action: () => navigate("/login") }
+    { label: "Logout", action: handleLogout }
   ];
   const navigateHandler = () => {
     setShowDropdown((prev) => !prev);
@@ -43,7 +48,8 @@ export default function Nav(props) {
   // --- MIDDLE SECTION VARIANTS ---
   // Quick/full search state
   const [locationNames, setLocationNames] = useState([]);
-  const [searchLocation, setSearchLocation] = useState("");
+  const { locationValue, setLocationValue } = useLocationSync();
+  const [searchLocation, setSearchLocation] = useState(locationValue || "");
   const [searchCheckIn, setSearchCheckIn] = useState(null);
   const [searchCheckOut, setSearchCheckOut] = useState(null);
   const [searchGuests, setSearchGuests] = useState("");
@@ -84,6 +90,11 @@ export default function Nav(props) {
         .catch(() => setLocationNames([]));
     }
   }, [variant]);
+
+  // Sync local state with context
+  useEffect(() => {
+    setSearchLocation(locationValue || "");
+  }, [locationValue]);
 
   const handleNavSearch = () => {
     const params = [];
@@ -195,7 +206,10 @@ export default function Nav(props) {
                     <select
                       className="searchbar-select"
                       value={searchLocation}
-                      onChange={e => setSearchLocation(e.target.value)}
+                      onChange={e => {
+                        setSearchLocation(e.target.value);
+                        setLocationValue(e.target.value);
+                      }}
                       style={{ borderRadius: 6, height: 36, border: '1px solid #ddd', padding: '0 12px', fontSize: '1rem', minWidth: 110, maxWidth: 140, background: '#fff', color: '#111' }}
                     >
                       <option value="select">Location</option>
@@ -347,13 +361,31 @@ export default function Nav(props) {
         </div>
         {renderMiddleSection()}
         <div className="nav-right">
-          <a href="#" className={`nav-host${isLogin ? ' nav-link-hidden' : ''}`} onClick={() => {
-            if (userName) {
-              navigate('/admin');
-            } else {
-              navigate('/login?host=true');
-            }
-          }}>Become a host</a>
+          <a
+            href="#"
+            className={`nav-host${isLogin ? ' nav-link-hidden' : ''}`}
+            onClick={e => {
+              e.preventDefault();
+              // Check for user authentication robustly
+              const user = localStorage.getItem('airbnb_user');
+              let isAuthenticated = false;
+              if (user) {
+                try {
+                  const parsed = JSON.parse(user);
+                  isAuthenticated = !!parsed && !!parsed.username;
+                } catch {
+                  isAuthenticated = false;
+                }
+              }
+              if (isAuthenticated) {
+                navigate('/admin');
+              } else {
+                navigate('/login?host=true');
+              }
+            }}
+          >
+            Become a host
+          </a>
           <FaGlobe size={18} />
           <div className="nav-profile-menu" style={{ position: "relative" }}>
             <FaBars size={16} />
