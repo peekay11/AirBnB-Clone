@@ -1,15 +1,22 @@
 
+
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload';
-const CLOUDINARY_UPLOAD_PRESET = 'YOUR_UPLOAD_PRESET';
+import { API_URL, CLOUDINARY_URL, CLOUDINARY_UPLOAD_PRESET } from '../constants';
 
 const CreateListing = () => {
   const [form, setForm] = useState({
-    title: '',
+    listingName: '',
+    type: '',
+    location: '',
+    location2: '',
     description: '',
+    rooms: '',
+    beds: '',
+    baths: '',
+    guests: '',
+    amenities: '', // comma separated string
     price: '',
     image: null
   });
@@ -26,7 +33,7 @@ const CreateListing = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.title || !form.description || !form.price || !form.image) {
+    if (!form.listingName || !form.type || !form.location || !form.description || !form.rooms || !form.beds || !form.baths || !form.guests || !form.amenities || !form.price || !form.image) {
       toast.error('Please fill all fields and select an image.');
       return;
     }
@@ -48,12 +55,22 @@ const CreateListing = () => {
       }
       // Post listing to backend
       const listing = {
-        title: form.title,
+        listingName: form.listingName,
+        type: form.type,
+        location: form.location,
+        location2: form.location2,
         description: form.description,
+        rooms: form.rooms,
+        beds: form.beds,
+        baths: form.baths,
+        guests: form.guests,
+        amenities: form.amenities.split(',').map(a => a.trim()).filter(Boolean),
         price: form.price,
-        imageUrl: cloudData.secure_url
+        images: [cloudData.secure_url],
+        rating: 0,
+        reviews: 0
       };
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/listings/new`, {
+      const res = await fetch(`${API_URL}/listings/new`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(listing)
@@ -62,12 +79,26 @@ const CreateListing = () => {
         toast.error('Failed to create listing.');
       } else {
         toast.success('Listing created successfully!');
-        setForm({ title: '', description: '', price: '', image: null });
+        setForm({
+          listingName: '',
+          type: '',
+          location: '',
+          location2: '',
+          description: '',
+          rooms: '',
+          beds: '',
+          baths: '',
+          guests: '',
+          amenities: '',
+          price: '',
+          image: null
+        });
       }
-    } catch (err) {
+    } catch {
       toast.error('Error creating listing.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -76,9 +107,30 @@ const CreateListing = () => {
       <form className="create-listing-form" onSubmit={handleSubmit}>
         <input
           type="text"
-          name="title"
-          placeholder="Title"
-          value={form.title}
+          name="listingName"
+          placeholder="Listing Name"
+          value={form.listingName}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="type"
+          placeholder="Type (e.g. Apartment, Cottage)"
+          value={form.type}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="location"
+          placeholder="Location (City)"
+          value={form.location}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="location2"
+          placeholder="Location 2 (Area, optional)"
+          value={form.location2}
           onChange={handleChange}
         />
         <textarea
@@ -89,8 +141,43 @@ const CreateListing = () => {
         />
         <input
           type="number"
+          name="rooms"
+          placeholder="Rooms"
+          value={form.rooms}
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="beds"
+          placeholder="Beds"
+          value={form.beds}
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="baths"
+          placeholder="Baths"
+          value={form.baths}
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="guests"
+          placeholder="Guests"
+          value={form.guests}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="amenities"
+          placeholder="Amenities (comma separated)"
+          value={form.amenities}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
           name="price"
-          placeholder="Price"
+          placeholder="Price (e.g. R500 / night)"
           value={form.price}
           onChange={handleChange}
         />

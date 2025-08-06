@@ -1,3 +1,4 @@
+import { API_URL } from '../constants';
 import "./Locations.css";
 
 function Locations() {
@@ -11,19 +12,21 @@ function Locations() {
   const [error, setError] = React.useState("");
 
   React.useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/listings`)
-      .then(res => {
+    const fetchLocations = async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const res = await fetch(`${API_URL}/listings`);
         if (!res.ok) throw new Error("Failed to fetch listings");
-        return res.json();
-      })
-      .then(data => {
+        const data = await res.json();
         setLocations(data);
-        setLoading(false);
-      })
-      .catch(() => {
+      } catch {
         setError("Unable to fetch listings. Please check your backend connection.");
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+    fetchLocations();
   }, []);
 
   React.useEffect(() => {

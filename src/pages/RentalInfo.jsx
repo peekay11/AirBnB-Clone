@@ -4,7 +4,7 @@ export default function RentalInfo({ listing }) {
   if (!listing) return null;
   return (
     <div className="rental-info">
-      <h3>Rental unit hosted by {listing.host || 'Host'}</h3>
+      <h3>Rental unit hosted by {listing.username || listing.host || 'Host'}</h3>
       <div className="rental-meta">
         <p>
           {listing.guests || 2} guests · {listing.rooms || 1} bedroom · {listing.beds || 1} bed · {listing.baths || 1} bath

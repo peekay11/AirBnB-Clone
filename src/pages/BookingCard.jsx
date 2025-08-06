@@ -1,3 +1,4 @@
+import { API_URL } from '../constants';
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,12 +10,13 @@ export default function BookingCard({ listing }) {
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(1);
   const [nights, setNights] = useState(7);
+  // Only use loading for reservation network request
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Calculate price per guest
-  const pricePerGuest = 180;
-  const price = pricePerGuest * guests;
+  // Use price from listing (database), fallback to 180 if missing
+  const pricePerNight = Number(listing.price) || 180;
+  const price = pricePerNight * guests;
   const reviews = listing.reviews || 0;
   const rating = listing.rating || 0;
   const cleaningFee = 80;
@@ -38,10 +40,16 @@ export default function BookingCard({ listing }) {
   }, [checkIn, checkOut]);
 
   const handleReserve = async () => {
-    setLoading(true);
     setError("");
     const user = JSON.parse(localStorage.getItem("airbnb_user") || "{}");
+    if (!user.username || user.username === "Guest") {
+      navigate("/login");
+      return;
+    }
+    setLoading(true); // Only for reservation network request
     const reservation = {
+      listingId: listing._id,
+      listingName: listing.listingName,
       image: listing.images?.[0],
       rooms: listing.rooms || listing.beds || "",
       amenities: listing.amenities,
@@ -51,34 +59,36 @@ export default function BookingCard({ listing }) {
       checkIn,
       checkOut,
       guests,
-      user: user.username || "Guest"
+      user: user.username
     };
     try {
-      // Post to /reservations (admin view)
-      await fetch(`${import.meta.env.VITE_API_URL}/reservations`, {
+      await fetch(`${API_URL}/reservations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(reservation)
       });
-      // Post to /user-reservations (user view)
-      await fetch(`${import.meta.env.VITE_API_URL}/user-reservations`, {
+      await fetch(`${API_URL}/user-reservations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(reservation)
       });
       navigate("/payment", { state: { amount: total, email: reservation.user } });
-    } catch {
+    } catch (err) {
       setError("Failed to reserve. Please try again.");
+    } finally {
+      setLoading(false); // Only for reservation network request
     }
-    setLoading(false);
   };
 
   return (
     <div className="booking-card">
       <p className="price"><strong>R{price}</strong> / night</p>
       <p className="sub-rating">⭐ {rating} · {reviews} reviews</p>
+      <label style={{fontWeight:'bold', fontSize:'0.95em', marginTop:8, display:'block', color:'#000'}}>Select check-in date</label>
       <input type="date" value={checkIn} onChange={e => setCheckIn(e.target.value)} />
+      <label style={{fontWeight:'bold', fontSize:'0.95em', marginTop:8, display:'block', color:'#000'}}>Select check-out date</label>
       <input type="date" value={checkOut} onChange={e => setCheckOut(e.target.value)} />
+      <label style={{fontWeight:'bold', fontSize:'0.95em', marginTop:8, display:'block', color:'#000'}}>Select number of guests</label>
       <input
         type="number"
         placeholder="Guests"
@@ -87,9 +97,6 @@ export default function BookingCard({ listing }) {
         value={guests}
         onChange={e => setGuests(Number(e.target.value))}
       />
-      <button className="reserve-btn" onClick={handleReserve} disabled={loading || !checkIn || !checkOut || guests < 1}>
-        {loading ? "Reserving..." : "Reserve"}
-      </button>
       {/* Reservation success message removed. Only show after payment. */}
       {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
       <p className="disclaimer">You won’t be charged yet</p>
@@ -101,6 +108,9 @@ export default function BookingCard({ listing }) {
         <p>Occupancy taxes <span>R{taxes}</span></p>
         <hr />
         <p className="total">Total <span>R{total}</span></p>
+        <button className="reserve-btn" onClick={handleReserve} disabled={loading || !checkIn || !checkOut || guests < 1} style={{ width: '100%', marginTop: 12 }}>
+          {loading ? "Reserving..." : "Reserve"}
+        </button>
       </div>
     </div>
   );

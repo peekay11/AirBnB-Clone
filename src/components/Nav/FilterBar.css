@@ -1,0 +1,8 @@
+input,
+.react-datepicker,
+.react-datepicker__header,
+.react-datepicker__input-container input {
+    border: none !important;
+    box-shadow: none !important;
+    margin-top: 0 !important;
+}

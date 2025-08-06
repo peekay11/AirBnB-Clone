@@ -1,22 +1,64 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../constants';
+import { useNavigate, useLocation } from 'react-router-dom';
 import "./ViewListings.css";
 
 const ViewListings = () => {
   const [listings, setListings] = useState([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [locationNames, setLocationNames] = useState([]);
+  const [location, setLocation] = useState("");
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [guests, setGuests] = useState("");
   const navigate = useNavigate();
+  const urlLocation = useLocation();
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/listings`)
+    setLoading(true);
+    fetch(`${API_URL}/listings`)
       .then(res => res.json())
       .then(result => {
-        if (!result.success) throw new Error(result.error || 'Unable to fetch listings.');
-        setListings(Array.isArray(result.data) ? result.data : []);
-        if (result.data.length === 0) setError('No listings found.');
+        let listingsArr = [];
+        if (Array.isArray(result)) {
+          listingsArr = result;
+        } else if (result && Array.isArray(result.data)) {
+          listingsArr = result.data;
+        } else if (result && Array.isArray(result.listings)) {
+          listingsArr = result.listings;
+        }
+        setListings(listingsArr);
+        // For quick search dropdown
+        const names = Array.from(new Set((listingsArr).map(l => l.listingName || l.location).filter(Boolean)));
+        setLocationNames(names);
+        if (listingsArr.length === 0) setError('No listings found.');
+        setLoading(false);
       })
-      .catch(err => setError(err.message || 'Unable to fetch listings. Please check your backend connection.'));
+      .catch(err => {
+        setError(err.message || 'Unable to fetch listings. Please check your backend connection.');
+        setLoading(false);
+      });
   }, []);
+
+  // Sync filters from URL on mount
+  useEffect(() => {
+    const params = new URLSearchParams(urlLocation.search);
+    setLocation(params.get('location') || "");
+    setCheckIn(params.get('checkIn') || "");
+    setCheckOut(params.get('checkOut') || "");
+    setGuests(params.get('guests') || "");
+  }, [urlLocation.search]);
+
+  const handleQuickSearch = () => {
+    const params = [];
+    if (location && location !== "select" && location !== "all") params.push(`location=${encodeURIComponent(location)}`);
+    if (checkIn) params.push(`checkIn=${encodeURIComponent(checkIn)}`);
+    if (checkOut) params.push(`checkOut=${encodeURIComponent(checkOut)}`);
+    if (guests) params.push(`guests=${encodeURIComponent(guests)}`);
+    const query = params.length ? `?${params.join("&")}` : "";
+    navigate(`/listing${query}`);
+  };
 
   const [favourites, setFavourites] = useState(() => {
     try {
@@ -27,12 +69,11 @@ const ViewListings = () => {
   });
 
   const handleSaveClick = (listing) => {
-    // Add to favourites in localStorage
-    const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-    // Avoid duplicates
+    // Add to favourites in state and localStorage
     if (!favourites.some(fav => fav._id === listing._id)) {
-      favourites.push(listing);
-      localStorage.setItem('favourites', JSON.stringify(favourites));
+      const newFavs = [...favourites, listing];
+      setFavourites(newFavs);
+      localStorage.setItem('favourites', JSON.stringify(newFavs));
     }
   };
   const handleCardClick = (id) => {
@@ -48,8 +89,52 @@ const ViewListings = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 0', textAlign: 'center', fontSize: '1.2rem', color: '#ff385c' }}>
+        Loading listings...
+      </div>
+    );
+  }
+
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 0' }}>
+      {/* Quick Search Bar */}
+      <div className="searchbar" style={{ marginBottom: 32 }}>
+        <div className="searchbar-group">
+          <label className="searchbar-label">Hotels</label>
+          <select className="searchbar-select" value={location} onChange={e => setLocation(e.target.value)}>
+            <option value="select">Select a Location</option>
+            <option value="all">All Locations</option>
+            {locationNames.map((loc, idx) => (
+              <option key={idx} value={loc}>{loc}</option>
+            ))}
+          </select>
+        </div>
+        <div className="searchbar-divider" />
+        <div className="searchbar-group">
+          <label className="searchbar-label">
+            Check in<br />
+            <input type="date" className="searchbar-input" value={checkIn} onChange={e => setCheckIn(e.target.value)} />
+          </label>
+        </div>
+        <div className="searchbar-divider" />
+        <div className="searchbar-group">
+          <label className="searchbar-label">
+            Check out<br />
+            <input type="date" className="searchbar-input" value={checkOut} onChange={e => setCheckOut(e.target.value)} />
+          </label>
+        </div>
+        <div className="searchbar-divider" />
+        <div className="searchbar-group">
+          <label className="searchbar-label">
+            Guests<br />
+            <input type="number" min="1" className="searchbar-input" value={guests} onChange={e => setGuests(e.target.value)} placeholder="Add guests" />
+          </label>
+        </div>
+        <button type="button" className="searchbar-btn" onClick={handleQuickSearch}>Search</button>
+      </div>
+      {/* ...existing code... */}
       <div style={{ width: '100%', marginTop: '24px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
         <h3 style={{ color: '#000' }}>Hotel Listings</h3>
         {error && <div style={{ color: 'red', marginBottom: '12px' }}>{error}</div>}
@@ -68,6 +153,7 @@ const ViewListings = () => {
                   }
                   alt="listing-image"
                   className="hotel-card-image"
+                  style={{ width: '80px', height: '80px', objectFit: 'cover', aspectRatio: '1 / 1', borderRadius: '8px' }}
                 />
               </div>
               <div className="hotel-card-right">
@@ -110,8 +196,8 @@ const ViewListings = () => {
                   </div>
                 </div>
               </div>
-                <button className="save-btn" onClick={() => handleSaveClick(listing)}>
-                  Save
+                <button className="save-btn" onClick={() => handleSaveClick(listing)} disabled={favourites.some(fav => fav._id === listing._id)}>
+                  {favourites.some(fav => fav._id === listing._id) ? 'Saved' : 'Save'}
                 </button>
             </div>
           ))}

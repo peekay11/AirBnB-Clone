@@ -1,3 +1,4 @@
+import { API_URL } from '../constants';
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "../components/Nav/Nav";
@@ -42,29 +43,32 @@ export default function Login() {
     }
     try {
       if (isLogin) {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+        const res = await fetch(`${API_URL}/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username: form.username, password: form.password })
         });
         const result = await res.json();
-        if (!result.success) {
+        // Accept both {success, user} and direct user object
+        if ((result && result.success === false) || (!result.user && !result.username)) {
           toast.error(result.error || "Login failed.");
           return;
         }
-        localStorage.setItem('airbnb_user', JSON.stringify(result.user));
+        const userObj = result.user || result;
+        localStorage.setItem('airbnb_user', JSON.stringify(userObj));
         toast.success("Login successful!");
         setTimeout(() => {
           navigate('/');
         }, 1200);
       } else {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        const res = await fetch(`${API_URL}/users`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username: form.username, password: form.password })
         });
         const result = await res.json();
-        if (!result.success) {
+        // Accept both {success} and direct user object
+        if ((result && result.success === false) || (result && result.error)) {
           toast.error(result.error || "Sign up failed.");
           return;
         }

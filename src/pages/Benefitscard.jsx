@@ -14,15 +14,15 @@ export default function BenefitsCard({ listing }) {
       <div className="benefit">
         <FaDoorOpen className="benefit-icon" />
         <div>
-          <strong>Self check-in</strong>
-          <p>Check yourself in with the lockbox.</p>
+          <strong>{listing?.selfCheckInTitle || 'Self check-in'}</strong>
+          <p>{listing?.selfCheckIn || 'Check yourself in with the lockbox.'}</p>
         </div>
       </div>
       <div className="benefit">
         <FaRegCalendarCheck className="benefit-icon" />
         <div>
-          <strong>Free cancellation</strong>
-          <p>Cancel within 48 hours for a full refund.</p>
+          <strong>{listing?.cancellationTitle || 'Free cancellation'}</strong>
+          <p>{listing?.cancellationPolicy || 'Cancel within 48 hours for a full refund.'}</p>
         </div>
       </div>
     </div>

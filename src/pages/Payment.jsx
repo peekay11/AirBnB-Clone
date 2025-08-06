@@ -1,3 +1,4 @@
+import { API_URL } from '../constants';
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -26,24 +27,52 @@ function Payment() {
         setPaying(false);
         setSuccess(true);
         alert("Payment successful! Ref: " + response.reference);
-        // Post reservation to /user-reservations (MongoDB expects object)
-        const reservation = {
-          email,
-          amount,
-          name,
-          reference: response.reference,
-          date: new Date().toISOString()
-        };
-        fetch(`${import.meta.env.VITE_API_URL}/user-reservations`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(reservation)
-        }).then(res => res.json())
-          .then(data => {
+        // Fetch the latest listing data by ID to get name, rooms, amenities, etc.
+        (async () => {
+          try {
+            let listingData = {};
+            if (bookingState.listingId) {
+              const listingRes = await fetch(`${API_URL}/listings/${bookingState.listingId}`);
+              const listingJson = await listingRes.json();
+              // Try to get the listing object from various possible response shapes
+              if (listingJson && listingJson.data) listingData = listingJson.data;
+              else if (listingJson && listingJson.listing) listingData = listingJson.listing;
+              else if (listingJson && listingJson._id) listingData = listingJson;
+            }
+            const user = JSON.parse(localStorage.getItem('airbnb_user') || '{}');
+            const reservation = {
+              listingId: bookingState.listingId,
+              // Always use the name from the /listings/:id endpoint, fallback to empty string if not found
+              listingName: listingData.listingName || listingData.name || '',
+              image: (listingData.images && Array.isArray(listingData.images) && listingData.images[0]) ? listingData.images[0] : '',
+              rooms: listingData.rooms || listingData.beds || listingData.maxGuests || '',
+              amenities: listingData.amenities || [],
+              rating: listingData.rating !== undefined ? listingData.rating : 0,
+              reviews: listingData.reviews !== undefined ? listingData.reviews : 0,
+              price: listingData.price !== undefined ? listingData.price : (amount || 0),
+              checkIn: bookingState.checkIn,
+              checkOut: bookingState.checkOut,
+              guests: bookingState.guests,
+              user: user.username || email,
+              email,
+              amount,
+              name,
+              reference: response.reference,
+              date: new Date().toISOString()
+            };
+            const res = await fetch(`${API_URL}/user-reservations`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(reservation)
+            });
+            await res.json();
             setTimeout(() => {
               navigate("/user-reservations");
             }, 1200);
-          });
+          } catch (err) {
+            // Optionally handle error
+          }
+        })();
       },
       onClose: function () {
         setPaying(false);

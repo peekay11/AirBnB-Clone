@@ -1,3 +1,4 @@
+import { API_URL, CLOUDINARY_URL, CLOUDINARY_UPLOAD_PRESET } from '../../constants';
 import React, { useState } from 'react';
 import './CreateListing.css';
 
@@ -18,6 +19,7 @@ const CreateListing = () => {
   ];
   const [selectedAmenity, setSelectedAmenity] = useState("");
   const [images, setImages] = useState([]);
+  // Only use loading for network requests (form submit), never for UI state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -30,20 +32,39 @@ const CreateListing = () => {
   };
 
   const handleImageUpload = (e) => {
+    // Instantly update images, no loading state
     setImages([...images, ...Array.from(e.target.files)]);
   };
 
   const handleRemoveImage = (index) => {
+    // Instantly update images, no loading state
     setImages(images.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); // Only set loading for network request
     setError('');
     try {
       const randomRating = (Math.random() * 1 + 4).toFixed(1); // 4.0 - 5.0
       const randomReviews = Math.floor(Math.random() * 300) + 50; // 50 - 349
+      // Upload all images to Cloudinary and collect URLs
+      let imageUrls = [];
+      if (Array.isArray(images) && images.length > 0) {
+        for (let img of images) {
+          const data = new FormData();
+          data.append('file', img);
+          data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+          const cloudRes = await fetch(CLOUDINARY_URL, {
+            method: 'POST',
+            body: data
+          });
+          const cloudData = await cloudRes.json();
+          if (cloudData.secure_url) {
+            imageUrls.push(cloudData.secure_url);
+          }
+        }
+      }
       const newListing = {
         listingName,
         rooms,
@@ -58,9 +79,9 @@ const CreateListing = () => {
         location2,
         description,
         amenities,
-        images: (Array.isArray(images) ? images : []).map(img => img.name || 'Image uploaded'),
+        images: imageUrls,
       };
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/listings`, {
+      const res = await fetch(`${API_URL}/listings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newListing),
@@ -73,7 +94,7 @@ const CreateListing = () => {
     } catch (err) {
       setError(err.message);
     } finally {
-      setLoading(false);
+      setLoading(false); // Only set loading for network request
     }
   };
 

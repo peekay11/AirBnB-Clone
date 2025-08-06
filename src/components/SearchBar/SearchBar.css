@@ -12,6 +12,7 @@
   height: 70px;
   margin: 2.5rem auto;
   position: relative;
+margin-top: 0px;
   z-index: 10;
 }
 

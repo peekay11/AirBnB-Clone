@@ -1,3 +1,4 @@
+import { API_URL, CLOUDINARY_URL, CLOUDINARY_UPLOAD_PRESET } from '../constants';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './Admin/CreateListing.css';
@@ -19,8 +20,12 @@ const UpdateListing = () => {
   const handleRemoveAmenity = (idx) => {
     setListing(prev => ({ ...prev, amenities: prev.amenities.filter((_, i) => i !== idx) }));
   };
+  // Track which images are new files vs. existing URLs
   const handleImageUpload = (e) => {
-    setListing(prev => ({ ...prev, images: [...(prev.images || []), ...Array.from(e.target.files).map(img => img.name || 'Image uploaded')] }));
+    setListing(prev => ({
+      ...prev,
+      images: [...(prev.images || []), ...Array.from(e.target.files)]
+    }));
   };
 
   const handleRemoveImage = (idx) => {
@@ -28,17 +33,27 @@ const UpdateListing = () => {
   };
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/listings/${id}`)
-      .then(res => res.json())
-      .then(result => {
-        if (!result.success) throw new Error(result.error || 'Listing not found');
-        setListing(result.data);
-        setLoading(false);
-      })
-      .catch(err => {
+    const fetchListing = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const res = await fetch(`${API_URL}/listings/${id}`);
+        const result = await res.json();
+        let listingObj = null;
+        if (result && typeof result === 'object' && 'success' in result) {
+          if (!result.success) throw new Error(result.error || 'Listing not found');
+          listingObj = result.data;
+        } else {
+          listingObj = result;
+        }
+        setListing(listingObj);
+      } catch (err) {
         setError(err.message || 'Listing not found');
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+    fetchListing();
   }, [id]);
 
   const handleChange = (e) => {
@@ -51,10 +66,32 @@ const UpdateListing = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/listings/${id}`, {
+      // Upload any new File objects to Cloudinary, keep existing URLs
+      let imageUrls = [];
+      if (Array.isArray(listing.images) && listing.images.length > 0) {
+        for (let img of listing.images) {
+          if (typeof img === 'string' && (img.startsWith('http') || img.startsWith('https'))) {
+            imageUrls.push(img);
+          } else if (img instanceof File) {
+            const data = new FormData();
+            data.append('file', img);
+            data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+            const cloudRes = await fetch(CLOUDINARY_URL, {
+              method: 'POST',
+              body: data
+            });
+            const cloudData = await cloudRes.json();
+            if (cloudData.secure_url) {
+              imageUrls.push(cloudData.secure_url);
+            }
+          }
+        }
+      }
+      const updatedListing = { ...listing, images: imageUrls };
+      const res = await fetch(`${API_URL}/listings/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(listing),
+        body: JSON.stringify(updatedListing),
       });
       const result = await res.json().catch(() => ({}));
       if (!res.ok || (result && result.error)) throw new Error(result.error || 'Failed to update listing');
@@ -66,7 +103,13 @@ const UpdateListing = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 200 }}>
+      <div className="loader" style={{ width: 48, height: 48, border: '6px solid #eee', borderTop: '6px solid #3b5bfd', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: 16 }} />
+      <span style={{ color: '#333', fontWeight: 500 }}>Loading...</span>
+      <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+    </div>
+  );
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
   if (!listing) return <div>Listing not found.</div>;
 
@@ -121,11 +164,13 @@ const UpdateListing = () => {
               <button type="button" onClick={handleAddAmenity} className="create-listing-btn" style={{ padding: '8px 24px', background: '#3b5bfd', color: '#fff', borderRadius: '4px', border: 'none' }}>Add</button>
             </div>
             <ul className="create-listing-amenity-list">
-              {Array.isArray(listing.amenities) ? listing.amenities.map((a, i) => (
-                <li key={i}>
-                  {a} <button type="button" style={{ marginLeft: 8, color: '#d32f2f', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => handleRemoveAmenity(i)}>×</button>
-                </li>
-              ))}
+              {Array.isArray(listing.amenities) ? listing.amenities.map((a, i) => {
+                return (
+                  <li key={i}>
+                    {a} <button type="button" style={{ marginLeft: 8, color: '#d32f2f', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => handleRemoveAmenity(i)}>×</button>
+                  </li>
+                );
+              }) : null}
             </ul>
           </div>
         </div>
@@ -135,7 +180,7 @@ const UpdateListing = () => {
           <div className="create-listing-image-preview">
             {Array.isArray(listing.images) && listing.images.length > 0 ? listing.images.map((img, i) => (
               <span key={i} style={{ display: 'inline-block', position: 'relative', marginRight: '12px' }}>
-                <span>{img}</span>
+                <span>{typeof img === 'string' ? img : img.name || 'Image uploaded'}</span>
                 <button type="button" onClick={() => handleRemoveImage(i)} style={{ position: 'absolute', top: 0, right: 0, background: '#d32f2f', color: '#fff', border: 'none', borderRadius: '50%', width: '22px', height: '22px', cursor: 'pointer', fontWeight: 'bold', fontSize: '1rem', lineHeight: '22px', padding: 0 }}>×</button>
               </span>
             )) : null}

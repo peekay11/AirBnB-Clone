@@ -19,6 +19,7 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   margin-bottom: 2rem;
   transition: transform 0.25s ease-in-out;
+  min-height: 220px;
 }
 
 .location-card:hover {
@@ -27,10 +28,11 @@
 
 .location-image {
   width: 320px;
-  height: 220px;
+  height: 100%;
   object-fit: cover;
   flex-shrink: 0;
   border-radius: 0;
+  display: block;
 }
 
 
@@ -38,7 +40,7 @@
   padding: 1.75rem 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   flex: 1;
 }
 

@@ -1,3 +1,4 @@
+import { API_URL } from '../constants';
 import React, { useState, useEffect } from "react";
 import "./SingleLocation.css";
 import HeaderBar from "./HeaderBar";
@@ -15,22 +16,42 @@ export default function SingleLocation() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/listings/${id}`)
-      .then(res => res.json())
-      .then(result => {
-        if (!result.success) throw new Error(result.error || "Listing not found");
-        setListing(result.data);
-      })
-      .catch(err => setError(err.message || "Listing not found"));
+    const fetchListing = async () => {
+      setError(null);
+      try {
+        const res = await fetch(`${API_URL}/listings/${id}`);
+        const result = await res.json();
+        let listingObj = null;
+        if (result && typeof result === 'object' && 'success' in result) {
+          if (!result.success) throw new Error(result.error || "Listing not found");
+          listingObj = result.data;
+        } else {
+          listingObj = result;
+        }
+        setListing(listingObj);
+      } catch (err) {
+        setError(err.message || "Listing not found");
+      }
+    };
+    fetchListing();
   }, [id]);
 
   if (error) return <div>{error}</div>;
   if (!listing) return <div>Loading...</div>;
 
+  // Always fill the gallery with 5 images (1 main + 4 side), duplicating as needed
+  let galleryImages = listing.images || [listing.image];
+  if (Array.isArray(galleryImages) && galleryImages.length < 5) {
+    const toFill = 5 - galleryImages.length;
+    galleryImages = [...galleryImages];
+    for (let i = 0; i < toFill; i++) {
+      galleryImages.push(galleryImages[i % galleryImages.length]);
+    }
+  }
   return (
     <div className="single-location">
       <HeaderBar listing={listing} />
-      <Gallery images={listing.images || [listing.image]} />
+      <Gallery images={galleryImages} />
       <div className="location-main">
         <div className="location-left">
           <RentalInfo listing={listing} />

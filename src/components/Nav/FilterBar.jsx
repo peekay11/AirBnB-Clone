@@ -1,5 +1,5 @@
 import { FaFilter } from "react-icons/fa";
-// import "./FilterBar.css";
+import "./FilterBar.css";
 
 export default function FilterBar({ locations, selectedLocation, onLocationChange, selectedAmenity, onAmenityChange, selectedPrice, onPriceChange }) {
   const priceOptions = [
