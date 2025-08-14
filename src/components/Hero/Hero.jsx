@@ -13,7 +13,7 @@ export default function Hero({
       style={{ backgroundImage: `url(${image})` }}
     >
       <div className="hero-overlay">
-        <h1 className="hero-title">{title}</h1>
+  <h1 className="hero-title hero-title-white">{title}</h1>
         {subtitle && <p className="hero-subtitle">{subtitle}</p>}
         <button className="hero-btn">{buttonText}</button>
       </div>

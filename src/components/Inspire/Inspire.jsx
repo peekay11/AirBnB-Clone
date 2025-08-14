@@ -32,7 +32,7 @@ function Inspire() {
           {locations.map((loc, i) => (
             <div className="inspire-card" key={i}>
               <img src={loc.image} alt={loc.title} className="inspire-img" />
-              <div className="inspire-caption">
+              <div className="inspire-caption inspire-caption-white">
                 <h3>{loc.title}</h3>
                 <p>{loc.distance}</p>
               </div>

@@ -71,6 +71,15 @@ function Payment() {
             }, 1200);
           } catch (err) {
             // Optionally handle error
+
+
+
+
+
+
+
+
+            
           }
         })();
       },

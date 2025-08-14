@@ -1,3 +1,8 @@
+.inspire-caption-white,
+.inspire-caption-white h3,
+.inspire-caption-white p {
+  color: #fff !important;
+}
 .inspire-section-wrapper {
   padding: 2rem 0;
   text-align: center;
