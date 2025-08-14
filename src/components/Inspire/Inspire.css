@@ -7,6 +7,10 @@
   padding: 2rem 0;
   text-align: center;
 }
+/* Ensure white text and dark background for Inspire card captions */
+.inspire-caption-white {
+  background-color: #222 !important;
+}
 
 .inspire-heading {
   display: block;
@@ -63,12 +67,18 @@
   font-size: 0.95rem;
 }
 
-/* Remove the gradient backgrounds for each card */
-.inspire-card:nth-child(1) .inspire-caption,
-.inspire-card:nth-child(2) .inspire-caption,
-.inspire-card:nth-child(3) .inspire-caption,
+/* Restore colorful gradient backgrounds for each Inspire card */
+.inspire-card:nth-child(1) .inspire-caption {
+  background: linear-gradient(135deg, #ff5a5f 0%, #fcaf45 100%);
+}
+.inspire-card:nth-child(2) .inspire-caption {
+  background: linear-gradient(135deg, #008489 0%, #00c6ae 100%);
+}
+.inspire-card:nth-child(3) .inspire-caption {
+  background: linear-gradient(135deg, #6c5ce7 0%, #00b894 100%);
+}
 .inspire-card:nth-child(4) .inspire-caption {
-  /* Remove these rules entirely to revert to the default background */
+  background: linear-gradient(135deg, #fd79a8 0%, #e17055 100%);
 }
 
 @media (max-width: 600px) {
